@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://blogs.bsynet.cc</id>
+    <title>Siyuan&apos;s Blog</title>
+    <updated>2025-08-17T13:49:39.774Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://blogs.bsynet.cc"/>
+    <link rel="self" href="https://blogs.bsynet.cc/atom.xml"/>
+    <subtitle>&lt;b&gt;思远&lt;/b&gt;的个人博客</subtitle>
+    <logo>https://blogs.bsynet.cc/images/avatar.png</logo>
+    <icon>https://blogs.bsynet.cc/favicon.ico</icon>
+    <rights>All rights reserved 2025, Siyuan&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[人会死，但我的博客在GitHub中会万岁]]></title>
+        <id>https://blogs.bsynet.cc/post/ren-hui-si-dan-wo-de-bo-ke-zai-github-zhong-hui-wan-sui/</id>
+        <link href="https://blogs.bsynet.cc/post/ren-hui-si-dan-wo-de-bo-ke-zai-github-zhong-hui-wan-sui/">
+        </link>
+        <updated>2024-10-27T07:30:56.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="一-博客的长寿之道">一、博客的长寿之道</h3>
+<p>考虑到个人购买服务器并不是长久之计，我转而关注了GitHub Pages。GitHub Pages提供了一个免费、稳定的托管平台，使你的博客与GitHub的存在时间同步。这意味着，无论是作为个人创作的见证，还是作为技术成果的展示，你的博客都能够以一种更加持久的方式存在，并为未来的读者提供信息与启发。因此，将博客托管于GitHub Pages不仅是一种技术选择，更是一种长寿的智慧之举。</p>
+<h3 id="二-博客框架gmeek">二、博客框架Gmeek</h3>
+<p>在搭建GitHub Pages上的个人博客框架方面，存在着诸多方法，然而，这些方法在实际应用中常常遇到一些问题，这些问题可以说是使用者的痛点。我在网上找到了很多用github搭建博客的方法，但都不是特别简单，因此，项目搁置了一段时间，直到一天，我在哔哩哔哩发现了up介绍了一个能够让用户轻松在GitHub Pages上建立个人博客的工具———Gmeek。这个项目集合了GitHub Pages、GitHub Issues以及GitHub Actions的功能，其设计理念非常简单——完全依赖于GitHub平台，并力求提供简便易用的操作体验。</p>
+<h3 id="三-搭建原理">三、搭建原理</h3>
+<p>GitHub Pages：作为静态网站的托管服务，GitHub Pages允许用户免费托管静态网站，这为Gmeek提供了一个稳定的基础。</p>
+<p>GitHub Issues：Gmeek巧妙地使用Issues作为博客文章的编辑器，每篇文章都是一个Issue，这样既利用了GitHub的协作特性，又简化了文章的创建和管理过程。</p>
+<p>GitHub Actions：自动化的部署流程，当在Issues中提交文章后，Actions会自动触发，执行部署任务，将文章渲染为网页，并更新到GitHub Pages上。</p>
+<h3 id="四-博客的未来">四、博客的未来</h3>
+<p>虽然没有什么东西是真正永恒的，但我们可以尽力让自己的博客在这个数字时代中存活更久，成为我们留给世界的一份礼物。让我们珍惜这个数字化的痕迹，让它们在 GitHub 中长寿不衰。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Python实现UDP通讯收发二端合一+源码]]></title>
+        <id>https://blogs.bsynet.cc/post/python-shi-xian-udp-tong-xun-shou-fa-er-duan-he-yi-yuan-ma/</id>
+        <link href="https://blogs.bsynet.cc/post/python-shi-xian-udp-tong-xun-shou-fa-er-duan-he-yi-yuan-ma/">
+        </link>
+        <updated>2024-10-27T07:26:43.000Z</updated>
+        <content type="html"><![CDATA[<p>这也是我第一次写博客，先不说废话，直接上源码</p>
+<pre><code class="language-python">from socket import *
+from threading import Thread
+
+def recvmsg(seedmsg):
+    while True:
+        data = seedmsg.recvfrom(1024)
+        print('来源:',data[1])
+        print('接收文件:',data[0].decode('gbk'))
+
+def sendmsg(seedmsg):
+    ip = input('请输入对方通讯ip地址')
+    port = int(input('请输入对方端口号'))
+    while True:
+        text = input('请输入发送内容\n')
+        seedmsg.sendto(text.encode('gbk'),(ip,port))
+
+
+app = socket(AF_INET,SOCK_DGRAM)
+
+app.bind(('IP地址',端口号))
+
+Thread(target=recvmsg,args=(app,)).start()
+Thread(target=sendmsg,args=(app,)).start()
+</code></pre>
+<p>这个程序依赖的库都是Python自带库</p>
+<p>复制两份一样的代码端口号不一样就行</p>
+<p>IP地址查询方法：<br>
+Windows：Windows键+r 输入cmd<br>
+输入指令：ipconfig 回车<br>
+端口号：如：8100<br>
+1-1023不要填，其他自然数都行，最好是简单的、不被其他软件占用的，如果使用重复的端口，会报错，如果报错可以换一个端口再次尝试</p>
+<p>想要测试可以自己给自己发信息。</p>
+<p>喜欢的话点个赞<br>
+————————————————</p>
+<p>版权声明：本文转载于本人在 2020-08-05 发布于CSDN社区的文章，内容有修改，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。</p>
+<p>原文链接：https://blog.csdn.net/masud_2020/article/details/107814964</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[开始]]></title>
+        <id>https://blogs.bsynet.cc/post/kai-shi/</id>
+        <link href="https://blogs.bsynet.cc/post/kai-shi/">
+        </link>
+        <updated>2024-04-05T09:43:01.000Z</updated>
+        <content type="html"><![CDATA[<p>测试</p>
+]]></content>
+    </entry>
+</feed>

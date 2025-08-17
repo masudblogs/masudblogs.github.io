@@ -1,0 +1,209 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python实现UDP通讯收发二端合一+源码 | Siyuan&#39;s Blog</title>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<link rel="shortcut icon" href="https://blogs.bsynet.cc/favicon.ico?v=1755438575622">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blogs.bsynet.cc/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python实现UDP通讯收发二端合一+源码 | Siyuan&#39;s Blog - Atom Feed" href="https://blogs.bsynet.cc/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="这也是我第一次写博客，先不说废话，直接上源码
+from socket import *
+from threading import Thread
+
+def recvmsg(seedmsg):
+    while True:
+        ..."/>
+    <meta name="keywords" content="Python"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="main-content">
+        <!-- <div class="site-header">
+  <a href="https://blogs.bsynet.cc">
+  <img class="avatar" src="https://blogs.bsynet.cc/images/avatar.png?v=1755438575622" alt="">
+  </a>
+  <h1 class="site-title">
+    Siyuan&#39;s Blog
+  </h1>
+  <p class="site-description">
+    <b>思远</b>的个人博客
+  </p>
+  <div class="menu-container">
+    
+  </div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/bsywqx" target="_blank">
+          <i class="ri-github-line"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+ -->
+        <br>
+        <a href="/"><返回</a>
+        <div class="post-detail">
+            <article class="post">
+                <h2 class="post-title">
+                    Python实现UDP通讯收发二端合一+源码
+                </h2>
+                <div class="post-info">
+              <span>
+                2024-10-27
+              </span>
+                    <span>
+                2 min read
+              </span>
+                    
+                        <a href="https://blogs.bsynet.cc/tag/l5T7kXlbzv/" class="post-tag">
+                            # Python
+                        </a>
+                    
+                </div>
+                
+                <div class="post-content-wrapper">
+                    <div class="post-content">
+                        <p>这也是我第一次写博客，先不说废话，直接上源码</p>
+<pre><code class="language-python">from socket import *
+from threading import Thread
+
+def recvmsg(seedmsg):
+    while True:
+        data = seedmsg.recvfrom(1024)
+        print('来源:',data[1])
+        print('接收文件:',data[0].decode('gbk'))
+
+def sendmsg(seedmsg):
+    ip = input('请输入对方通讯ip地址')
+    port = int(input('请输入对方端口号'))
+    while True:
+        text = input('请输入发送内容\n')
+        seedmsg.sendto(text.encode('gbk'),(ip,port))
+
+
+app = socket(AF_INET,SOCK_DGRAM)
+
+app.bind(('IP地址',端口号))
+
+Thread(target=recvmsg,args=(app,)).start()
+Thread(target=sendmsg,args=(app,)).start()
+</code></pre>
+<p>这个程序依赖的库都是Python自带库</p>
+<p>复制两份一样的代码端口号不一样就行</p>
+<p>IP地址查询方法：<br>
+Windows：Windows键+r 输入cmd<br>
+输入指令：ipconfig 回车<br>
+端口号：如：8100<br>
+1-1023不要填，其他自然数都行，最好是简单的、不被其他软件占用的，如果使用重复的端口，会报错，如果报错可以换一个端口再次尝试</p>
+<p>想要测试可以自己给自己发信息。</p>
+<p>喜欢的话点个赞<br>
+————————————————</p>
+<p>版权声明：本文转载于本人在 2020-08-05 发布于CSDN社区的文章，内容有修改，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。</p>
+<p>原文链接：https://blog.csdn.net/masud_2020/article/details/107814964</p>
+
+                    </div>
+                    <div class="toc-container">
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+
+
+        <div id="vcomments"></div>
+        <script>
+            new Valine({
+                el: '#vcomments',
+                appId: '8uSSRpmLuZ933mHTpmNWg5hn-gzGzoHsz',
+                appKey: 'NUirQRGmFG08YW8JA22LtRqp'
+            })
+        </script>
+
+       
+        <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://blogs.bsynet.cc/post/kai-shi/">
+                <h3 class="post-title">
+                    开始
+                </h3>
+            </a>
+        </div>
+     
+
+        
+
+        <div class="site-footer">
+  Powered by   <a href="http://bsynet.cc">BSY NET</a>
+  <a class="rss" href="https://blogs.bsynet.cc/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+    </div>
+</div>
+
+
+
+<script>
+    hljs.initHighlightingOnLoad()
+
+    let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+    // This should probably be throttled.
+    // Especially because it triggers during smooth scrolling.
+    // https://lodash.com/docs/4.17.10#throttle
+    // You could do like...
+    // window.addEventListener("scroll", () => {
+    //    _.throttle(doThatStuff, 100);
+    // });
+    // Only not doing it here to keep this Pen dependency-free.
+
+    window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+            let section = document.getElementById(decodeURI(link.hash).substring(1));
+            let nextSection = null
+            if (mainNavLinks[index + 1]) {
+                nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+            }
+            if (section.offsetTop <= fromTop) {
+                if (nextSection) {
+                    if (nextSection.offsetTop > fromTop) {
+                        link.classList.add("current");
+                    } else {
+                        link.classList.remove("current");
+                    }
+                } else {
+                    link.classList.add("current");
+                }
+            } else {
+                link.classList.remove("current");
+            }
+        });
+    });
+
+</script>
+
+
+
+</body>
+</html>
